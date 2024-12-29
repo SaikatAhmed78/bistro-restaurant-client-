@@ -2,6 +2,9 @@ import React from 'react';
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
+
+    const currentYear = new Date().getFullYear();
+
     return (
         <footer className="text-white">
             <div className="grid grid-cols-1 md:grid-cols-2">
@@ -32,7 +35,7 @@ const Footer = () => {
             </div>
 
             <div className="bg-black text-center py-6">
-                <p className="text-gray-400">Copyright ©BISTRO BOSS. All rights reserved.</p>
+                <p className="text-gray-400">Copyright © {currentYear} BISTRO BOSS. All rights reserved.</p>
             </div>
         </footer>
     );
