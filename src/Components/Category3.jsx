@@ -1,4 +1,5 @@
 import React from 'react';
+import SectionTitle from '../Common/SectionTitle'; 
 
 const Category3 = () => {
 
@@ -14,15 +15,17 @@ const Category3 = () => {
 
     return (
         <div className="p-5 flex flex-col items-center justify-center text-gray-800">
+            <SectionTitle
+                subHeading="---Check it out---"
+                heading="FROM OUR MENU"
+            />
             <div className="text-center text-black mb-12">
-                <h1 className="text-5xl font-extrabold mb-6">From Our Menu</h1>
                 <p className="text-lg font-light max-w-3xl mx-auto">
                     Discover a world of flavors with our carefully crafted dishes, made with the finest ingredients and a touch of culinary passion.
                 </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-         
                 <MenuItem
                     title="ROAST DUCK BREAST"
                     description="Roasted duck breast (served pink) with gratin potato and a girolline cherry sauce"
