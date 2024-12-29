@@ -10,34 +10,30 @@ import Reviews from '../Components/Reviews';
 const Home = () => {
     return (
         <div>
-           <Banner></Banner>
+            <Banner></Banner>
 
-           <div className='w-11/12 mx-auto mt-10 p-5'>
-           <Category></Category>
-           </div>
-
-           <div className='w-11/12 mx-auto mt-5 p-5'>
-           <Category2></Category2>
-           </div>
-
-           <div className='w-11/12 mx-auto p-5'>
-           <Category3></Category3>
-           </div>
-
-           <div className='w-11/12 mx-auto p-5'>
-           <Category4></Category4>
-           </div>
-
-           <div className='w-11/12 mx-auto p-5'>
-           <Featured></Featured>
-           </div>
-           
-           <div className='w-11/12 mx-auto p-5'>
-           <Reviews></Reviews>
-           </div>
-
+            <div className='w-11/12 mx-auto mt-5 p-5'>
+                <Category></Category>
+                <Category2></Category2>
+                <Category3></Category3>
+                <Category4></Category4>
+                <Featured></Featured>
+                <Reviews></Reviews>
+            </div>
         </div>
     );
 };
 
+
+
 export default Home;
+
+
+
+
+
+
+
+
+
+
