@@ -1,19 +1,13 @@
-import React, { useEffect, useState } from 'react';
 import SectionTitle from '../Common/SectionTitle'; 
 import MenuItem from '../Common/MenuItem';
 import { FaChevronRight } from 'react-icons/fa';
+import useMenu from '../Hooks/useMenu';
 
 const Category3 = () => {
-    const [menu, setMenu] = useState([]);
 
-    useEffect(() => {
-        fetch('menu.json')
-            .then(res => res.json())
-            .then(data => {
-                const popularItem = data.filter(item => item.category === 'popular');
-                setMenu(popularItem);
-            });
-    }, []);
+    const [menu] = useMenu();
+
+    const popularItem = menu.filter(item => item.category === 'popular');
 
     return (
         <div className="p-5 flex flex-col items-center justify-center text-gray-800">
@@ -28,7 +22,7 @@ const Category3 = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {menu.map(item => (
+                {popularItem.map(item => (
                     <MenuItem
                         key={item._id}
                         item={item}
