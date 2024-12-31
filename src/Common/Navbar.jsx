@@ -8,9 +8,8 @@ const Navbar = () => {
         <li className="text-lg">
             <NavLink
                 to={to}
-                className={({ isActive }) => 
-                    `flex items-center space-x-2 p-2 rounded-md transition-all duration-300 ${
-                        isActive ? "text-yellow-300 bg-gray-800" : "text-gray-400 hover:text-white hover:bg-gray-700"
+                className={({ isActive }) =>
+                    `flex items-center space-x-2 p-2 rounded-md transition-all duration-300 ${isActive ? "text-yellow-300 bg-gray-800" : "text-gray-400 hover:text-white hover:bg-gray-700"
                     }`
                 }
             >
@@ -24,12 +23,13 @@ const Navbar = () => {
         <nav className="bg-black bg-opacity-70 fixed w-full z-50 shadow-lg">
             <div className="container mx-auto flex justify-between items-center p-4">
 
-            <div className="lg:hidden">
+                <div className="lg:hidden">
                     <div className="dropdown relative">
                         <label tabIndex={0} className="btn btn-ghost">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="white" viewBox="0 0 24 24" stroke="#fff">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
                             </svg>
+
                         </label>
                         <ul
                             tabIndex={0}
@@ -39,7 +39,7 @@ const Navbar = () => {
                             <NavItem to="/contact" icon={<FaPhoneAlt />} label="Contact Us" />
                             <NavItem to="/dashboard" icon={<FaTachometerAlt />} label="Dashboard" />
                             <NavItem to="/menu" icon={<FaUtensils />} label="Our Menu" />
-                            <NavItem to="/shop" icon={<FaStore />} label="Our Shop" />
+                            <NavItem to="/shop/salad" icon={<FaStore />} label="Our Shop" />
                             <NavItem to="/signout" icon={<FaSignOutAlt />} label="Sign Out" />
                         </ul>
                     </div>
@@ -56,7 +56,7 @@ const Navbar = () => {
                         <NavItem to="/contact" icon={<FaPhoneAlt />} label="Contact Us" />
                         <NavItem to="/dashboard" icon={<FaTachometerAlt />} label="Dashboard" />
                         <NavItem to="/menu" icon={<FaUtensils />} label="Our Menu" />
-                        <NavItem to="/shop" icon={<FaStore />} label="Our Shop" />
+                        <NavItem to="/shop/salad" icon={<FaStore />} label="Our Shop" />
                         <NavItem to="/signout" icon={<FaSignOutAlt />} label="Sign Out" />
                     </ul>
                 </div>

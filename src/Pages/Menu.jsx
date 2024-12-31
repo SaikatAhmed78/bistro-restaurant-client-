@@ -2,10 +2,25 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Cover from '../Common/Cover';
 import menuImg from '../assets/menu/banner3.jpg'
-import Category3 from '../Components/Category3';
-import Category2 from '../Components/Category2';
+import useMenu from '../Hooks/useMenu';
+import SectionTitle from '../Common/SectionTitle';
+import MenuCategory from '../Components/MenuCategory';
+import dessertImg from '../assets/menu/dessert-bg.jpeg'
+import pizzaImg from '../assets/menu/pizza-bg.jpg'
+import saladImg from '../assets/menu/salad-bg.jpg'
+import soupImg from '../assets/menu/soup-bg.jpg'
+
 
 const Menu = () => {
+
+    const [menu] = useMenu();
+
+    const desserts = menu.filter(item => item.category === 'dessert')
+    const soup = menu.filter(item => item.category === 'soup')
+    const salad = menu.filter(item => item.category === 'salad')
+    const pizza = menu.filter(item => item.category === 'pizza')
+    const offered = menu.filter(item => item.category === 'offered')
+
     return (
         <div>
             <Helmet>
@@ -16,9 +31,34 @@ const Menu = () => {
            
            <div className='w-11/12 mx-auto p-5'>
 
-           <Category3></Category3>
+                <SectionTitle subHeading="---Don't miss---" heading="TODAY'S OFFER"></SectionTitle>
 
-           <Category2></Category2>
+                <MenuCategory items={offered}></MenuCategory>
+                <MenuCategory 
+                items={desserts}
+                img={dessertImg}
+                title="DESSERT"
+                ></MenuCategory>
+
+                <MenuCategory 
+                items={pizza}               
+                 img={pizzaImg}
+                 title="PIZZA"
+                ></MenuCategory>
+
+                <MenuCategory 
+                items={salad}
+                img={saladImg}
+                title="SALAD"
+                ></MenuCategory>
+
+                <MenuCategory 
+                items={soup}
+                img={soupImg}
+                title={"SOUP"}
+                ></MenuCategory>
+                
+
            </div>
         </div>
     );

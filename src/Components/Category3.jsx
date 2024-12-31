@@ -2,6 +2,8 @@ import SectionTitle from '../Common/SectionTitle';
 import MenuItem from '../Common/MenuItem';
 import { FaChevronRight } from 'react-icons/fa';
 import useMenu from '../Hooks/useMenu';
+import { Link } from 'react-router-dom';
+import { TiTabsOutline } from 'react-icons/ti';
 
 const Category3 = () => {
 
@@ -30,10 +32,12 @@ const Category3 = () => {
                 ))}
             </div>
 
-            <button className="mt-8 btn btn-outline  text-black font-bold border-0 border-b-4 rounded-lg shadow-lg flex items-center space-x-2">
+           <Link to={`/shop`}>
+           <button className="mt-8 btn btn-outline  text-black font-bold border-0 border-b-4 rounded-lg shadow-lg flex items-center space-x-2">
                 <span>View Full Menu</span>
                 <FaChevronRight />
             </button>
+           </Link>
         </div>
     );
 };
