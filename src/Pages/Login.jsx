@@ -1,20 +1,21 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-import { FaUser, FaLock, FaGoogle, FaFacebook } from 'react-icons/fa';
+import { FaUser, FaLock } from 'react-icons/fa';
 import { GrValidate } from 'react-icons/gr';
 import loginImg from '../assets/others/authentication1.png';
 import loginBgImg from '../assets/others/authentication.png';
 import { AuthContext } from '../Providers/AuthProvider';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
+import { RingLoader } from 'react-spinners';
 
 const Login = () => {
-
     const captchaRef = useRef(null);
     const [disabled, setDisable] = useState(true);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const { signIn } = useContext(AuthContext);
 
@@ -41,7 +42,8 @@ const Login = () => {
                     timer: 2000,
                     showConfirmButton: false
                 });
-                navigate('/');
+                const from = location.state?.from?.pathname || '/';
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 console.error(error);
@@ -128,7 +130,7 @@ const Login = () => {
                             disabled={disabled || loading}
                             className={`w-full py-2 rounded-md transition duration-300 ${disabled || loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-yellow-500 hover:bg-yellow-400 text-white'}`}
                         >
-                            {loading ? 'Signing In...' : 'Sign In'}
+                            {loading ? <RingLoader color="#facc15" size={25} /> : 'Sign In'}
                         </button>
                     </form>
                     <div className="text-center mt-6">

@@ -1,34 +1,45 @@
-import { useForm, } from "react-hook-form"
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from 'react-router-dom';
-import { FaUser, FaLock, FaEnvelope } from 'react-icons/fa';
-import loginImg from '../assets/others/authentication1.png'
-import loginBgImg from '../assets/others/authentication.png'
+import { FaUser, FaLock, FaEnvelope, FaImage } from 'react-icons/fa';
+import loginImg from '../assets/others/authentication1.png';
+import loginBgImg from '../assets/others/authentication.png';
 import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
+import Swal from 'sweetalert2';
 import { AuthContext } from "../Providers/AuthProvider";
 
-
-
 const SignUp = () => {
-
-    const {createNewUser} = useContext(AuthContext);
+    const { createNewUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const { register, handleSubmit, formState: { errors }, } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data => {
-        
         createNewUser(data.email, data.password)
         .then(result => {
             const loggedUser = result.user;
-            console.log(loggedUser)
+            return updateUserProfile(data.name, data.photoURL);
         })
+        .then(() => {
+            Swal.fire({
+                title: 'Success!',
+                text: 'User profile updated successfully',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+            navigate('/');
+        })
+        .catch(error => {
+            Swal.fire({
+                title: 'Error!',
+                text: error.message,
+                icon: 'error',
+                confirmButtonText: 'Try Again'
+            });
+        });
     };
 
-
-
     return (
-
         <>
         <Helmet>
             <title>Bistro Boss - SignUp</title>
@@ -73,22 +84,44 @@ const SignUp = () => {
                             </div>
                             {errors.email && <span className="text-red-700">Email is required</span>}
                         </div>
-                        <div className="flex items-center border rounded-md p-2">
-                            <FaLock className="text-gray-400" />
-                            <input
-                                type="password"
-                                id="password"
-                                {...register("password", {
-                                    required: true,
-                                    minLength: 6,
-                                    maxLength: 10,
-                                    pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,10}$/
-                                })}
-                                className="w-full p-2 ml-2 focus:outline-none"
-                                placeholder="Enter your password"
-                                name='password'
-                                required
-                            />
+                        <div className="mb-6">
+                            <label className="block text-gray-600 mb-2" htmlFor="photoURL">
+                                Photo URL
+                            </label>
+                            <div className="flex items-center border rounded-md p-2">
+                                <FaImage className="text-gray-400" />
+                                <input
+                                    type="text"
+                                    id="photoURL"
+                                    {...register("photoURL", { required: true })}
+                                    className="w-full p-2 ml-2 focus:outline-none"
+                                    placeholder="Enter photo URL"
+                                    name='photoURL'
+                                />
+                            </div>
+                            {errors.photoURL && <span className="text-red-700">Photo URL is required</span>}
+                        </div>
+                        <div className="mb-6">
+                            <label className="block text-gray-600 mb-2" htmlFor="password">
+                                Password
+                            </label>
+                            <div className="flex items-center border rounded-md p-2">
+                                <FaLock className="text-gray-400" />
+                                <input
+                                    type="password"
+                                    id="password"
+                                    {...register("password", {
+                                        required: true,
+                                        minLength: 6,
+                                        maxLength: 10,
+                                        pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,10}$/
+                                    })}
+                                    className="w-full p-2 ml-2 focus:outline-none"
+                                    placeholder="Enter your password"
+                                    name='password'
+                                    required
+                                />
+                            </div>
                             {errors.password?.type === 'required' && <span className="text-red-700">Password is required</span>}
                             {errors.password?.type === 'minLength' && <span className="text-red-700">Password must be at least 6 characters</span>}
                             {errors.password?.type === 'maxLength' && <span className="text-red-700">Password cannot exceed 10 characters</span>}
