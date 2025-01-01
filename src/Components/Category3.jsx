@@ -3,7 +3,7 @@ import MenuItem from '../Common/MenuItem';
 import { FaChevronRight } from 'react-icons/fa';
 import useMenu from '../Hooks/useMenu';
 import { Link } from 'react-router-dom';
-import { TiTabsOutline } from 'react-icons/ti';
+
 
 const Category3 = () => {
 

@@ -4,8 +4,9 @@ import Cover from '../Common/Cover';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import useMenu from '../Hooks/useMenu';
-import CategoryCard from '../Common/CategoryCard';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import OrderTab from '../Components/OrderTab';
 
 const OurShop = () => {
     const categories = ['salad', 'pizza', 'soup', 'drinks'];
@@ -24,6 +25,10 @@ const OurShop = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Bistro Boss - Our Shop</title>
+            </Helmet>
+
             <Cover img={shopCoverImg} title="OUR SHOP" />
 
             <div className="w-11/12 mx-auto mt-10 p-5">
@@ -43,14 +48,7 @@ const OurShop = () => {
 
                     {Object.keys(categorizedItems).map((category, index) => (
                         <TabPanel key={index}>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                {categorizedItems[category].map(item => (
-                                    <CategoryCard
-                                        key={item._id}
-                                        item={item}
-                                    />
-                                ))}
-                            </div>
+                            <OrderTab items={categorizedItems[category]} />
                         </TabPanel>
                     ))}
                 </Tabs>
