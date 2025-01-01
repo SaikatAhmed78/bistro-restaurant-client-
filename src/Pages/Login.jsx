@@ -1,25 +1,35 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { FaUser, FaLock, FaGoogle, FaFacebook } from 'react-icons/fa';
 import { GrValidate } from 'react-icons/gr';
 import loginImg from '../assets/others/authentication1.png';
 import loginBgImg from '../assets/others/authentication.png';
+import { AuthContext } from '../Providers/AuthProvider';
 
 const Login = () => {
+
     const captchaRef = useRef(null);
     const [disabled, setDisable] = useState(true);
+
+    const {signIn} = useContext(AuthContext);
 
     useEffect(() => {
         loadCaptchaEnginge(6);
     }, []);
 
-    const handleSubmit = (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
+
+        signIn(email, password)
+        .then(result => {
+            const user = result.user;
+            console.log(user)
+        })
     };
 
     const handleValidateCaptcha = () => {
@@ -32,14 +42,14 @@ const Login = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${loginBgImg})` }}>
+        <div className="flex justify-center items-center  bg-cover bg-center" style={{ backgroundImage: `url(${loginBgImg})` }}>
             <div className="bg-white rounded-lg shadow-2xl flex max-w-4xl w-full">
                 <div className="hidden md:flex md:w-1/2 flex-col justify-center items-center p-8">
                     <img src={loginImg} alt="Login Illustration" className="w-80 h-80 object-cover" />
                 </div>
                 <div className="w-full md:w-1/2 p-8 md:p-16">
                     <h2 className="text-3xl font-semibold text-center mb-6">Login</h2>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleLogin}>
                         <div className="mb-6">
                             <label className="block text-gray-600 mb-2" htmlFor="email">Email</label>
                             <div className="flex items-center border rounded-md p-2">
