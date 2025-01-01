@@ -3,24 +3,36 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock, FaEnvelope } from 'react-icons/fa';
 import loginImg from '../assets/others/authentication1.png'
 import loginBgImg from '../assets/others/authentication.png'
+import { Helmet } from "react-helmet-async";
+import { useContext } from "react";
+import { AuthContext } from "../Providers/AuthProvider";
 
 
 
 const SignUp = () => {
 
+    const {createNewUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
 
     const onSubmit = data => {
-        console.log(data)
+        
+        createNewUser(data.email, data.password)
+        .then(result => {
+            const loggedUser = result.user;
+            console.log(loggedUser)
+        })
     };
 
 
 
-
-
     return (
+
+        <>
+        <Helmet>
+            <title>Bistro Boss - SignUp</title>
+        </Helmet>
 
         <div className="flex justify-center items-center min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${loginBgImg})` }}>
             <div className="bg-white rounded-lg shadow-2xl flex max-w-4xl w-full">
@@ -42,7 +54,7 @@ const SignUp = () => {
                                     name='name'
                                 />
                             </div>
-                                {errors.name && <span className="text-red-700">Name is required</span>}
+                            {errors.name && <span className="text-red-700">Name is required</span>}
                         </div>
                         <div className="mb-6">
                             <label className="block text-gray-600 mb-2" htmlFor="email">
@@ -59,29 +71,30 @@ const SignUp = () => {
                                     name='email'
                                 />
                             </div>
-                                 {errors.email && <span className="text-red-700">Email is required</span>}
+                            {errors.email && <span className="text-red-700">Email is required</span>}
                         </div>
-                        <div className="mb-6">
-                            <label className="block text-gray-600 mb-2" htmlFor="password">
-                                Password
-                            </label>
-                            <div className="flex items-center border rounded-md p-2">
-                                <FaLock className="text-gray-400" />
-                                <input
-                                    type="password"
-                                    id="password"
-                                    {...register("password", { required: true, minLength: 6, maxLength: 10 })}
-                                    className="w-full p-2 ml-2 focus:outline-none"
-                                    placeholder="Enter your password"
-                                    name='password'
-                                    required
-                                />
-                            </div>
-                                {errors.password?.type === 'required' && <span className="text-red-700">Password is required</span>}
-                                {errors.password?.type === 'minLength' && <span className="text-red-700">Password must be at least 6 characters</span>}
-                                {errors.password?.type === 'maxLength' && <span className="text-red-700">Password cannot exceed 10 characters</span>}
+                        <div className="flex items-center border rounded-md p-2">
+                            <FaLock className="text-gray-400" />
+                            <input
+                                type="password"
+                                id="password"
+                                {...register("password", {
+                                    required: true,
+                                    minLength: 6,
+                                    maxLength: 10,
+                                    pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,10}$/
+                                })}
+                                className="w-full p-2 ml-2 focus:outline-none"
+                                placeholder="Enter your password"
+                                name='password'
+                                required
+                            />
+                            {errors.password?.type === 'required' && <span className="text-red-700">Password is required</span>}
+                            {errors.password?.type === 'minLength' && <span className="text-red-700">Password must be at least 6 characters</span>}
+                            {errors.password?.type === 'maxLength' && <span className="text-red-700">Password cannot exceed 10 characters</span>}
+                            {errors.password?.type === 'pattern' && <span className="text-red-700">Password must include uppercase, lowercase, number, and special character</span>}
+                        </div>
 
-                        </div>
                         <button
                             type="submit"
                             className="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-400 transition duration-300"
@@ -102,6 +115,7 @@ const SignUp = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

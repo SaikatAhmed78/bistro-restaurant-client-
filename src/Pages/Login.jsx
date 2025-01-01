@@ -1,18 +1,22 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { FaUser, FaLock, FaGoogle, FaFacebook } from 'react-icons/fa';
 import { GrValidate } from 'react-icons/gr';
 import loginImg from '../assets/others/authentication1.png';
 import loginBgImg from '../assets/others/authentication.png';
 import { AuthContext } from '../Providers/AuthProvider';
+import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
 const Login = () => {
 
     const captchaRef = useRef(null);
     const [disabled, setDisable] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    const {signIn} = useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -20,20 +24,38 @@ const Login = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
+        setLoading(true);
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
-
+        
         signIn(email, password)
-        .then(result => {
-            const user = result.user;
-            console.log(user)
-        })
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                setLoading(false);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Successful',
+                    text: 'Welcome back!',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                navigate('/');
+            })
+            .catch(error => {
+                console.error(error);
+                setLoading(false);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    text: error.message
+                });
+            });
     };
 
-    const handleValidateCaptcha = () => {
-        const userCaptchaValue = captchaRef.current.value;
+    const handleValidateCaptcha = (e) => {
+        const userCaptchaValue = e.target.value;
         if (validateCaptcha(userCaptchaValue)) {
             setDisable(false);
         } else {
@@ -42,8 +64,13 @@ const Login = () => {
     };
 
     return (
-        <div className="flex justify-center items-center  bg-cover bg-center" style={{ backgroundImage: `url(${loginBgImg})` }}>
-            <div className="bg-white rounded-lg shadow-2xl flex max-w-4xl w-full">
+      <>
+      <Helmet>
+        <title>Bistro Boss - Login</title>
+      </Helmet>
+
+      <div className="flex justify-center items-center min-h-screen bg-cover bg-center px-4 md:px-0" style={{ backgroundImage: `url(${loginBgImg})` }}>
+            <div className="bg-white rounded-lg shadow-2xl flex flex-col md:flex-row max-w-4xl w-full">
                 <div className="hidden md:flex md:w-1/2 flex-col justify-center items-center p-8">
                     <img src={loginImg} alt="Login Illustration" className="w-80 h-80 object-cover" />
                 </div>
@@ -75,17 +102,12 @@ const Login = () => {
                                     id="captcha"
                                     name="captcha"
                                     ref={captchaRef}
+                                    onBlur={handleValidateCaptcha}
                                     className="w-full p-2 ml-2 focus:outline-none"
                                     placeholder="Type the Captcha"
                                     required
                                 />
                             </div>
-                            <button
-                                onClick={handleValidateCaptcha}
-                                className="btn btn-outline btn-xs mt-2"
-                            >
-                                Validate Captcha
-                            </button>
                         </div>
                         <div className="mb-6">
                             <label className="block text-gray-600 mb-2" htmlFor="password">Password</label>
@@ -103,10 +125,10 @@ const Login = () => {
                         </div>
                         <button
                             type="submit"
-                            disabled={disabled}
-                            className={`w-full py-2 rounded-md transition duration-300 ${disabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-yellow-500 hover:bg-yellow-400 text-white'}`}
+                            disabled={disabled || loading}
+                            className={`w-full py-2 rounded-md transition duration-300 ${disabled || loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-yellow-500 hover:bg-yellow-400 text-white'}`}
                         >
-                            Sign In
+                            {loading ? 'Signing In...' : 'Sign In'}
                         </button>
                     </form>
                     <div className="text-center mt-6">
@@ -114,18 +136,10 @@ const Login = () => {
                             New here? Create a New Account
                         </Link>
                     </div>
-                    <div className="text-center text-gray-500 mt-6">Or sign in with</div>
-                    <div className="flex justify-center mt-4">
-                        <button className="p-2 mx-2 bg-gray-200 rounded-full hover:bg-gray-300">
-                            <FaGoogle />
-                        </button>
-                        <button className="p-2 mx-2 bg-gray-200 rounded-full hover:bg-gray-300">
-                            <FaFacebook />
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
+      </>
     );
 };
 

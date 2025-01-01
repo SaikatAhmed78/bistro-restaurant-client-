@@ -1,5 +1,5 @@
 import React from 'react';
-import yourImage from '../../src/assets/home/chef-service.jpg';
+import yourImage from '../../assets/home/chef-service.jpg';
 
 const Category2 = () => {
     return (

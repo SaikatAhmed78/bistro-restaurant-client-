@@ -1,8 +1,31 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaHome, FaPhoneAlt, FaTachometerAlt, FaUtensils, FaStore, FaSignOutAlt } from 'react-icons/fa';
+import { AuthContext } from '../Providers/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleSignOut = () => {
+        logOut().then(() => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Logged Out',
+                text: 'You have been successfully logged out.',
+                timer: 2000,
+                showConfirmButton: false
+            });
+            navigate('/login');
+        }).catch((error) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Logout Failed',
+                text: error.message
+            });
+        });
+    };
 
     const NavItem = ({ to, icon, label }) => (
         <li className="text-lg">
@@ -20,7 +43,7 @@ const Navbar = () => {
     );
 
     return (
-        <nav className="bg-black bg-opacity-70 fixed w-full z-50 shadow-lg">
+        <nav className="bg-black bg-opacity-80 fixed w-full z-50 shadow-lg">
             <div className="container mx-auto flex justify-between items-center p-4">
 
                 <div className="lg:hidden">
@@ -29,18 +52,17 @@ const Navbar = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="white" viewBox="0 0 24 24" stroke="#fff">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
                             </svg>
-
                         </label>
                         <ul
                             tabIndex={0}
                             className="dropdown-content mt-3 p-4 space-y-3 shadow bg-gray-900 rounded-md w-52"
                         >
                             <NavItem to="/" icon={<FaHome />} label="Home" />
-                            <NavItem to="/contact" icon={<FaPhoneAlt />} label="Contact Us" />
+                            <NavItem to="/contactUs" icon={<FaPhoneAlt />} label="Contact Us" />
                             <NavItem to="/dashboard" icon={<FaTachometerAlt />} label="Dashboard" />
                             <NavItem to="/menu" icon={<FaUtensils />} label="Our Menu" />
                             <NavItem to="/shop/salad" icon={<FaStore />} label="Our Shop" />
-                            <NavItem to="/signout" icon={<FaSignOutAlt />} label="Sign Out" />
+                            {user && <NavItem to="#" icon={<FaSignOutAlt />} label="Sign Out" onClick={handleSignOut} />}
                         </ul>
                     </div>
                 </div>
@@ -53,18 +75,26 @@ const Navbar = () => {
                 <div className="hidden lg:flex space-x-8">
                     <ul className="flex space-x-6">
                         <NavItem to="/" icon={<FaHome />} label="Home" />
-                        <NavItem to="/contact" icon={<FaPhoneAlt />} label="Contact Us" />
+                        <NavItem to="/contactUs" icon={<FaPhoneAlt />} label="Contact Us" />
                         <NavItem to="/dashboard" icon={<FaTachometerAlt />} label="Dashboard" />
                         <NavItem to="/menu" icon={<FaUtensils />} label="Our Menu" />
                         <NavItem to="/shop/salad" icon={<FaStore />} label="Our Shop" />
-                        <NavItem to="/signout" icon={<FaSignOutAlt />} label="Sign Out" />
+                        {user && <NavItem to="#" icon={<FaSignOutAlt />} label="Sign Out" onClick={handleSignOut} />}
                     </ul>
                 </div>
 
-
-                <Link to="/login" className="btn bg-yellow-500 hover:bg-yellow-400 text-black">
-                    Login
-                </Link>
+                {user ? (
+                    <button
+                        onClick={handleSignOut}
+                        className="btn bg-yellow-500 hover:bg-yellow-400 text-black"
+                    >
+                        Sign Out
+                    </button>
+                ) : (
+                    <Link to="/login" className="btn bg-yellow-500 hover:bg-yellow-400 text-black">
+                        Login
+                    </Link>
+                )}
             </div>
         </nav>
     );

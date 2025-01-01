@@ -1,8 +1,9 @@
-import SectionTitle from '../Common/SectionTitle'; 
-import MenuItem from '../Common/MenuItem';
+ 
 import { FaChevronRight } from 'react-icons/fa';
-import useMenu from '../Hooks/useMenu';
 import { Link } from 'react-router-dom';
+import SectionTitle from '../../Common/SectionTitle';
+import MenuItem from '../../Common/MenuItem';
+import useMenu from '../../Hooks/useMenu';
 
 
 const Category3 = () => {

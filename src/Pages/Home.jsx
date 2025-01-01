@@ -1,12 +1,12 @@
 import React from 'react';
-import Banner from '../Components/Banner';
-import Category from '../Components/Category';
-import Category2 from '../Components/Category2';
-import Category3 from '../Components/Category3';
-import Category4 from '../Components/Category4';
-import Featured from '../Components/Featured';
-import Reviews from '../Components/Reviews';
+import Category4 from '../Components/Home/Category4';
+import Reviews from '../Components/Home/Reviews';
 import { Helmet } from 'react-helmet-async';
+import Category from '../Components/Home/Category';
+import Category2 from '../Components/Home/Category2';
+import Category3 from '../Components/Home/Category3';
+import Featured from '../Components/Home/Featured';
+import Banner from '../Components/Home/Banner';
 
 const Home = () => {
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
-import SectionTitle from '../Common/SectionTitle'; 
+import SectionTitle from '../../Common/SectionTitle'; 
 import { FaCartPlus } from 'react-icons/fa';
-import caesarSaladImage from '../../src/assets/home/featured.jpg';
+import caesarSaladImage from '../../assets/home/featured.jpg';
 
 const Category4 = () => {
 

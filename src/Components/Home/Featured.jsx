@@ -1,6 +1,6 @@
 import React from 'react';
-import './Featured.css';
-import overlayImage from '../../src/assets/home/featured.jpg';
+import './featured.css'
+import overlayImage from '../../assets/home/featured.jpg';
 
 const Featured = () => {
     return (
