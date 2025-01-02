@@ -3,6 +3,7 @@ import useAuth from '../Hooks/useAuth';
 import Swal from 'sweetalert2';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useAxios from '../Hooks/useAxios';
+import useCart from '../Hooks/useCart';
 
 const CategoryCard = ({ item }) => {
 
@@ -11,9 +12,11 @@ const CategoryCard = ({ item }) => {
     const { user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const useAxiosSecure = useAxios();
 
-    const handleAddToCart = food => {
+    const axiosSecure = useAxios();
+    const [refetch] = useCart();
+
+    const handleAddToCart = ()=> {
         if (user && user.email) {
 
             const cartItem = {
@@ -24,15 +27,16 @@ const CategoryCard = ({ item }) => {
                 price
             };
 
-            useAxiosSecure.post('/carts', cartItem)
+            axiosSecure.post('/carts', cartItem)
                 .then(res => {
                     if (res.data.insertedId) {
                         Swal.fire({
                             title: 'Added to Cart!',
-                            text: `${food.name} has been added to your cart.`,
+                            text: `Food has been added to your cart.`,
                             icon: 'success',
                             confirmButtonColor: '#3085d6', confirmButtonText: 'Continue Shopping'
                         });
+                        refetch();
                     }
                 })
 
@@ -65,7 +69,7 @@ const CategoryCard = ({ item }) => {
                 </div>
             </div>
             <button
-                onClick={() => handleAddToCart(item)}
+                onClick={handleAddToCart}
                 className="btn btn-outline text-black font-bold border-0 border-b-4 rounded-lg shadow-lg flex items-center space-x-2 py-2 px-4 justify-center">
                 <FaCartPlus />
                 <span>Add to Cart</span>
