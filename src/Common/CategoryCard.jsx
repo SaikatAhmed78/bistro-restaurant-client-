@@ -1,15 +1,40 @@
 import { FaCartPlus } from 'react-icons/fa';
 import useAuth from '../Hooks/useAuth';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const CategoryCard = ({ item }) => {
+
+    const { name, image, recipe, price, _id } = item;
+
     const { user } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleAddToCart = food => {
         if (user && user.email) {
-            // Add to cart logic here
+
+            const cartItem = {
+                menuId: _id,
+                email: user.email,
+                name,
+                image,
+                price
+            };
+
+            axios.post('http://localhost:5000/carts', cartItem)
+                .then(res => {
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            title: 'Added to Cart!',
+                            text: `${food.name} has been added to your cart.`,
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6', confirmButtonText: 'Continue Shopping'
+                        });
+                    }
+                })
+
         } else {
             Swal.fire({
                 title: 'Need to login',
@@ -22,7 +47,7 @@ const CategoryCard = ({ item }) => {
                 cancelButtonText: 'No, thanks'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    navigate('/login');
+                    navigate('/login', { state: { from: location } });
                 }
             });
         }
@@ -31,11 +56,11 @@ const CategoryCard = ({ item }) => {
     return (
         <div className="bg-white p-6 rounded-l hover:shadow-2xl relative overflow-hidden flex flex-col justify-between">
             <div>
-                <img src={item?.image} className="w-full h-48 object-cover rounded-t-lg mb-4" />
+                <img src={image} className="w-full h-48 object-cover rounded-t-lg mb-4" />
                 <div className="text-center">
-                    <h3 className="uppercase font-bold text-2xl mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500">{item.name}</h3>
-                    <p className="text-gray-700 mb-2">{item?.recipe}</p>
-                    <p className="text-gray-900 font-bold mb-4">${item?.price}</p>
+                    <h3 className="uppercase font-bold text-2xl mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500">{name}</h3>
+                    <p className="text-gray-700 mb-2">{recipe}</p>
+                    <p className="text-gray-900 font-bold mb-4">${price}</p>
                 </div>
             </div>
             <button
