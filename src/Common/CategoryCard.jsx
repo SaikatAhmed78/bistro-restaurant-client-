@@ -2,6 +2,11 @@ import React from 'react';
 import { FaCartPlus } from 'react-icons/fa';
 
 const CategoryCard = ({ item }) => {
+
+    const handleAddToCart = food => {
+        console.log(food)
+    }
+
     return (
         <div className="bg-white p-6 rounded-l hover:shadow-2xl relative overflow-hidden flex flex-col justify-between">
             <div>
@@ -12,7 +17,9 @@ const CategoryCard = ({ item }) => {
                     <p className="text-gray-900 font-bold mb-4">${item?.price}</p>
                 </div>
             </div>
-            <button className="btn btn-outline  text-black font-bold border-0 border-b-4 rounded-lg shadow-lg flex items-center space-x-2 py-2 px-4 justify-center">
+            <button 
+            onClick={() => handleAddToCart(item)}
+            className="btn btn-outline  text-black font-bold border-0 border-b-4 rounded-lg shadow-lg flex items-center space-x-2 py-2 px-4 justify-center">
                 <FaCartPlus />
                 <span>Add to Cart</span>
             </button>

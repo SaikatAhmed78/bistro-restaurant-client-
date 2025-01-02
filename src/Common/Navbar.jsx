@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { FaHome, FaPhoneAlt, FaTachometerAlt, FaUtensils, FaStore, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaPhoneAlt, FaTachometerAlt, FaUtensils, FaStore, FaSignOutAlt, FaShoppingCart } from 'react-icons/fa';
 import { AuthContext } from '../Providers/AuthProvider';
 import Swal from 'sweetalert2';
+import profileImg from '../assets/others/profile.png';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -36,7 +37,7 @@ const Navbar = () => {
                     }`
                 }
             >
-                {React.cloneElement(icon, { className: 'w-5 h-5' })}
+                {icon}
                 <span>{label}</span>
             </NavLink>
         </li>
@@ -45,7 +46,7 @@ const Navbar = () => {
     return (
         <nav className="bg-black bg-opacity-80 fixed w-full z-50 shadow-lg">
             <div className="container mx-auto flex justify-between items-center p-4">
-
+         
                 <div className="lg:hidden">
                     <div className="dropdown relative">
                         <label tabIndex={0} className="btn btn-ghost">
@@ -62,7 +63,7 @@ const Navbar = () => {
                             <NavItem to="/dashboard" icon={<FaTachometerAlt />} label="Dashboard" />
                             <NavItem to="/menu" icon={<FaUtensils />} label="Our Menu" />
                             <NavItem to="/shop/salad" icon={<FaStore />} label="Our Shop" />
-                            {user && <NavItem to="#" icon={<FaSignOutAlt />} label="Sign Out" onClick={handleSignOut} />}
+                            <NavItem to="/cart" icon={<FaShoppingCart />} label="Shopping Cart" />
                         </ul>
                     </div>
                 </div>
@@ -72,6 +73,7 @@ const Navbar = () => {
                     <span className="text-yellow-400">RESTAURANT</span>
                 </Link>
 
+          
                 <div className="hidden lg:flex space-x-8">
                     <ul className="flex space-x-6">
                         <NavItem to="/" icon={<FaHome />} label="Home" />
@@ -79,17 +81,28 @@ const Navbar = () => {
                         <NavItem to="/dashboard" icon={<FaTachometerAlt />} label="Dashboard" />
                         <NavItem to="/menu" icon={<FaUtensils />} label="Our Menu" />
                         <NavItem to="/shop/salad" icon={<FaStore />} label="Our Shop" />
-                        {user && <NavItem to="#" icon={<FaSignOutAlt />} label="Sign Out" onClick={handleSignOut} />}
+                        <li className="flex items-center space-x-2">
+                            <FaShoppingCart className="w-5 h-5 text-white" />
+                            <div className="badge badge-secondary">+0</div>
+                        </li>
                     </ul>
                 </div>
 
                 {user ? (
-                    <button
-                        onClick={handleSignOut}
-                        className="btn bg-yellow-500 hover:bg-yellow-400 text-black"
-                    >
-                        Sign Out
-                    </button>
+                    <div className="flex items-center space-x-4">
+                        <img
+                            src={user.photoURL || profileImg}
+                            alt="User"
+                            className="w-10 h-10 rounded-full"
+                        />
+                        <span className="text-white">{user.displayName || 'User'}</span>
+                        <button
+                            onClick={handleSignOut}
+                            className="btn bg-yellow-500 hover:bg-yellow-400 text-black"
+                        >
+                            Sign Out
+                        </button>
+                    </div>
                 ) : (
                     <Link to="/login" className="btn bg-yellow-500 hover:bg-yellow-400 text-black">
                         Login

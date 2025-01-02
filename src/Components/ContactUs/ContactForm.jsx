@@ -2,48 +2,50 @@ import React from 'react';
 
 const ContactForm = () => {
     return (
-        <section className="text-center mb-8">
-            <h2 className="text-3xl font-semibold mb-4">CONTACT FORM</h2>
-            <form className="max-w-lg mx-auto space-y-6">
-                <div>
+        <section className="text-center py-16 bg-gray-50 text-gray-900">
+            <h2 className="text-5xl font-extrabold mb-12">Get in Touch</h2>
+            <form className="max-w-3xl mx-auto bg-white p-10 rounded-xl shadow-2xl space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <input
                         type="text"
-                        placeholder="Enter your name"
-                        className="w-full p-3 border rounded-md focus:outline-none focus:border-gray-500"
+                        placeholder="Full Name"
+                        className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                     />
-                </div>
-                <div>
                     <input
                         type="email"
-                        placeholder="Enter your email"
-                        className="w-full p-3 border rounded-md focus:outline-none focus:border-gray-500"
+                        placeholder="Email Address"
+                        className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                     />
                 </div>
-                <div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <input
                         type="tel"
-                        placeholder="Enter your phone number"
-                        className="w-full p-3 border rounded-md focus:outline-none focus:border-gray-500"
+                        placeholder="Phone Number"
+                        className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
+                    <input
+                        type="text"
+                        placeholder="Subject"
+                        className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                     />
                 </div>
-                <div>
-                    <textarea
-                        placeholder="Write your message here"
-                        className="w-full p-3 border rounded-md focus:outline-none focus:border-gray-500"
-                        rows="4"
-                        required
-                    ></textarea>
-                </div>
-                <div className="flex justify-center items-center space-x-2">
-                    <input type="checkbox" id="notRobot" className="mr-2" required />
-                    <label htmlFor="notRobot">I'm not a robot</label>
+                <textarea
+                    placeholder="Your Message"
+                    className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    rows="6"
+                    required
+                ></textarea>
+                <div className="flex items-center justify-start space-x-4">
+                    <input type="checkbox" id="robotCheck" className="w-5 h-5" required />
+                    <label htmlFor="robotCheck" className="text-lg">I am not a robot</label>
                 </div>
                 <button
                     type="submit"
-                    className="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-400 transition duration-300"
+                    className="w-full bg-blue-600 text-white text-xl py-4 rounded-lg hover:bg-blue-500 transition duration-300"
                 >
                     Send Message
                 </button>

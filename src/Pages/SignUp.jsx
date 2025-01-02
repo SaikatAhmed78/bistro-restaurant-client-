@@ -18,9 +18,8 @@ const SignUp = () => {
         createNewUser(data.email, data.password)
         .then(result => {
             const loggedUser = result.user;
-            return updateUserProfile(data.name, data.photoURL);
-        })
-        .then(() => {
+         updateUserProfile(data.name, data.photoURL)
+         .then(() => {
             Swal.fire({
                 title: 'Success!',
                 text: 'User profile updated successfully',
@@ -29,6 +28,9 @@ const SignUp = () => {
             });
             navigate('/');
         })
+
+        })
+       
         .catch(error => {
             Swal.fire({
                 title: 'Error!',
