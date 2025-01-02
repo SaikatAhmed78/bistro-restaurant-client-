@@ -2,7 +2,7 @@ import { FaCartPlus } from 'react-icons/fa';
 import useAuth from '../Hooks/useAuth';
 import Swal from 'sweetalert2';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import useAxios from '../Hooks/useAxios';
 
 const CategoryCard = ({ item }) => {
 
@@ -11,6 +11,7 @@ const CategoryCard = ({ item }) => {
     const { user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const useAxiosSecure = useAxios();
 
     const handleAddToCart = food => {
         if (user && user.email) {
@@ -23,7 +24,7 @@ const CategoryCard = ({ item }) => {
                 price
             };
 
-            axios.post('http://localhost:5000/carts', cartItem)
+            useAxiosSecure.post('/carts', cartItem)
                 .then(res => {
                     if (res.data.insertedId) {
                         Swal.fire({

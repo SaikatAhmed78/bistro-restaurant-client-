@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { FaHome, FaPhoneAlt, FaTachometerAlt, FaUtensils, FaStore, FaSignOutAlt, FaShoppingCart } from 'react-icons/fa';
+import { FaHome, FaPhoneAlt, FaTachometerAlt, FaUtensils, FaStore, FaShoppingCart } from 'react-icons/fa';
 import { AuthContext } from '../Providers/AuthProvider';
 import Swal from 'sweetalert2';
 import profileImg from '../assets/others/profile.png';
+import useCart from '../Hooks/useCart';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [carts] = useCart();
     const navigate = useNavigate();
 
     const handleSignOut = () => {
@@ -63,7 +65,7 @@ const Navbar = () => {
                             <NavItem to="/dashboard" icon={<FaTachometerAlt />} label="Dashboard" />
                             <NavItem to="/menu" icon={<FaUtensils />} label="Our Menu" />
                             <NavItem to="/shop/salad" icon={<FaStore />} label="Our Shop" />
-                            <NavItem to="/cart" icon={<FaShoppingCart />} label="Shopping Cart" />
+                          
                         </ul>
                     </div>
                 </div>
@@ -81,9 +83,10 @@ const Navbar = () => {
                         <NavItem to="/dashboard" icon={<FaTachometerAlt />} label="Dashboard" />
                         <NavItem to="/menu" icon={<FaUtensils />} label="Our Menu" />
                         <NavItem to="/shop/salad" icon={<FaStore />} label="Our Shop" />
+
                         <li className="flex items-center space-x-2">
                             <FaShoppingCart className="w-5 h-5 text-white" />
-                            <div className="badge badge-secondary">+0</div>
+                            <div className="badge badge-secondary">+{carts.length}</div>
                         </li>
                     </ul>
                 </div>
