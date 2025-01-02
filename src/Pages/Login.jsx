@@ -72,7 +72,7 @@ const Login = () => {
       </Helmet>
 
       <div className="flex justify-center items-center min-h-screen bg-cover bg-center px-4 md:px-0" style={{ backgroundImage: `url(${loginBgImg})` }}>
-            <div className="bg-white rounded-lg shadow-2xl flex flex-col md:flex-row max-w-4xl w-full">
+      <div className="bg-white rounded-lg shadow-2xl flex flex-col md:flex-row max-w-4xl w-full">
                 <div className="hidden md:flex md:w-1/2 flex-col justify-center items-center p-8">
                     <img src={loginImg} alt="Login Illustration" className="w-80 h-80 object-cover" />
                 </div>
@@ -133,6 +133,8 @@ const Login = () => {
                             {loading ? <RingLoader color="#facc15" size={25} /> : 'Sign In'}
                         </button>
                     </form>
+
+                    
                     <div className="text-center mt-6">
                         <Link to="/signUp" className="text-sm text-yellow-500 hover:underline">
                             New here? Create a New Account

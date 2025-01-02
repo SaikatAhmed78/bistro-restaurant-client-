@@ -1,11 +1,32 @@
-import React from 'react';
 import { FaCartPlus } from 'react-icons/fa';
+import useAuth from '../Hooks/useAuth';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const CategoryCard = ({ item }) => {
+    const { user } = useAuth();
+    const navigate = useNavigate();
 
     const handleAddToCart = food => {
-        console.log(food)
-    }
+        if (user && user.email) {
+            // Add to cart logic here
+        } else {
+            Swal.fire({
+                title: 'Need to login',
+                text: "You need to login to add items to the cart. Do you want to login now?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, login',
+                cancelButtonText: 'No, thanks'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/login');
+                }
+            });
+        }
+    };
 
     return (
         <div className="bg-white p-6 rounded-l hover:shadow-2xl relative overflow-hidden flex flex-col justify-between">
@@ -17,16 +38,14 @@ const CategoryCard = ({ item }) => {
                     <p className="text-gray-900 font-bold mb-4">${item?.price}</p>
                 </div>
             </div>
-            <button 
-            onClick={() => handleAddToCart(item)}
-            className="btn btn-outline  text-black font-bold border-0 border-b-4 rounded-lg shadow-lg flex items-center space-x-2 py-2 px-4 justify-center">
+            <button
+                onClick={() => handleAddToCart(item)}
+                className="btn btn-outline text-black font-bold border-0 border-b-4 rounded-lg shadow-lg flex items-center space-x-2 py-2 px-4 justify-center">
                 <FaCartPlus />
                 <span>Add to Cart</span>
             </button>
-
         </div>
     );
 };
 
 export default CategoryCard;
-
