@@ -1,18 +1,44 @@
 import React from 'react';
 import useCart from '../../Hooks/useCart';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import Swal from 'sweetalert2';
+import useAxios from '../../Hooks/useAxios';
 
 const Cart = () => {
     const [cart, refetch] = useCart();
 
     const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+    const axiosSecure = useAxios();
 
     const handleEditItem = (itemId) => {
         // Handle edit item logic here
     };
 
     const handleRemoveItem = (itemId) => {
-        // Handle remove item logic here
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                axiosSecure.delete(`/carts/${itemId}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
     };
 
     const handlePay = () => {
@@ -49,7 +75,7 @@ const Cart = () => {
                             {cart.map(item => (
                                 <tr key={item._id} className="border-t">
                                     <td className="px-2 md:px-4 py-2">
-                                        <img src={item.image} alt={item.name} className="w-12 h-12 md:w-16 md:h-16 object-cover rounded" />
+                                        <img src={item.image} className="w-12 h-12 md:w-16 md:h-16 object-cover rounded" />
                                     </td>
                                     <td className="px-2 md:px-4 py-2">{item.name}</td>
                                     <td className="px-2 md:px-4 py-2">${item.price.toFixed(2)}</td>
