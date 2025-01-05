@@ -1,19 +1,62 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { FaTrashAlt, FaUserEdit, FaUserShield, FaUser } from 'react-icons/fa';
+import { FaTrashAlt, FaUserShield, } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 import useAxios from '../../Hooks/useAxios';
 
 const AllUsers = () => {
-
     const axiosSecure = useAxios();
 
-    const { data: users = [] } = useQuery({
+    const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await axiosSecure.get('/users');
-            return res.data
+            return res.data;
         }
-    })
+    });
+
+    const handleMakeAdmin = (user) => {
+        axiosSecure.patch(`/users/admin/${user._id}`)
+            .then(res => {
+                console.log(res.data);
+                if (res.data.modifiedCount > 0) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: `${user?.name} has been promoted to admin.`,
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        customClass: { container: 'z-50' }
+                    });
+                    refetch();
+                }
+            });
+    };
+
+    const handleDeleteUser = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/users/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "The user has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    });
+            }
+        });
+    };
 
     return (
         <div className="container mx-auto py-10 px-6">
@@ -31,23 +74,26 @@ const AllUsers = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.map(user => (
-                                <tr key={user.id} className="border-b border-gray-200 hover:bg-gray-50 transition duration-200">
+                            {users.map((user) => (
+                                <tr key={user._id} className="border-b border-gray-200 hover:bg-gray-50 transition duration-200">
                                     <td className="py-4 px-6 text-gray-800 font-medium">{user.name}</td>
                                     <td className="py-4 px-6 text-gray-600">{user.email}</td>
                                     <td className="py-4 px-6 text-center">
-                                        {user.role === 'Admin' ? (
-                                            <FaUserShield className="text-red-500 mx-auto cursor-pointer hover:text-red-700" size={20} />
-                                        ) : (
-                                            <FaUser className="text-blue-500 mx-auto cursor-pointer hover:text-blue-700" size={20} />
-                                        )}
+                                        {user.role === 'admin'
+                                            ? <span className="text-green-500 font-bold">Admin</span>
+                                            : <button
+                                                onClick={() => handleMakeAdmin(user)}
+                                                className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-1 rounded"
+                                            >
+                                                <FaUserShield className="inline mr-2" /> Make Admin
+                                            </button>}
                                     </td>
                                     <td className="py-4 px-6 text-center">
-                                        <button className="text-red-500 hover:text-red-700 mx-2 tooltip" data-tip="Delete User">
+                                        <button
+                                            onClick={() => handleDeleteUser(user._id)}
+                                            className="text-red-500 hover:text-red-700 mx-2 tooltip" data-tip="Delete User"
+                                        >
                                             <FaTrashAlt size={18} />
-                                        </button>
-                                        <button className="text-blue-500 hover:text-blue-700 mx-2 tooltip" data-tip="Edit User">
-                                            <FaUserEdit size={18} />
                                         </button>
                                     </td>
                                 </tr>

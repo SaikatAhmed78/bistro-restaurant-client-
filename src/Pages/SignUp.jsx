@@ -21,7 +21,8 @@ const SignUp = () => {
         createNewUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
-                console.log(loggedUser)
+
+
                 updateUserProfile(data.name, data.photoURL)
                     .then(() => {
 
@@ -33,7 +34,7 @@ const SignUp = () => {
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
-                                    console.log('user added')
+
                                     Swal.fire({
                                         title: 'Success!',
                                         text: 'User profile updated successfully',
