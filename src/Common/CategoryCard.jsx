@@ -14,9 +14,9 @@ const CategoryCard = ({ item }) => {
     const location = useLocation();
 
     const axiosSecure = useAxios();
-    const [refetch] = useCart();
+    const [, refetch] = useCart();
 
-    const handleAddToCart = ()=> {
+    const handleAddToCart = () => {
         if (user && user.email) {
 
             const cartItem = {

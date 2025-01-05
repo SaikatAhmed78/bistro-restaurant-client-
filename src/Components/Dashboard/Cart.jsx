@@ -12,6 +12,7 @@ const Cart = () => {
 
     const handleEditItem = (itemId) => {
         // Handle edit item logic here
+        alert('Payment process initiated!');
     };
 
     const handleRemoveItem = (itemId) => {

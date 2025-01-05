@@ -3,7 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { FaHome, FaPlus, FaEdit, FaCalendarAlt, FaUsers, FaConciergeBell, FaStore, FaAddressBook } from 'react-icons/fa';
 
 const menuItems = [
-    { to: "/dashboard", label: "Admin Home", icon: <FaHome /> },
+    { to: "/dashboard", label: "Admin Home", icon: <FaHome />, end: true },
     { to: "/dashboard/add-items", label: "Add Items", icon: <FaPlus /> },
     { to: "/dashboard/manage-items", label: "Manage Items", icon: <FaEdit /> },
     { to: "/dashboard/manage-bookings", label: "Manage Bookings", icon: <FaCalendarAlt /> },
@@ -13,7 +13,7 @@ const menuItems = [
 const extraLinks = [
     { to: "/", label: "Home", icon: <FaHome /> },
     { to: "/menu", label: "Menu", icon: <FaConciergeBell /> },
-    { to: "/shop", label: "Shop", icon: <FaStore /> },
+    { to: "/shop/:category", label: "Shop", icon: <FaStore /> },
     { to: "/contactUs", label: "Contact", icon: <FaAddressBook /> },
 ];
 
@@ -27,6 +27,7 @@ const Dashboard = () => {
                         <li key={index}>
                             <NavLink
                                 to={item.to}
+                                end={item.end}
                                 className={({ isActive }) => 
                                     `flex items-center space-x-2 p-2 rounded-md transition-all duration-300 ${
                                         isActive ? "bg-white text-yellow-500" : "text-white hover:bg-yellow-600 hover:bg-opacity-50"

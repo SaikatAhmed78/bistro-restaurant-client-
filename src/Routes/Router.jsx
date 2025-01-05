@@ -10,6 +10,7 @@ import Contactus from "../Pages/Contactus";
 import Dashboard from "../Pages/Dashboard";
 import Cart from "../Components/Dashboard/Cart";
 import AddItems from "../Components/Dashboard/AddItems";
+import PrivateRoute from "../Secure/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -46,7 +47,11 @@ const router = createBrowserRouter([
 
     {
         path: '/dashboard',
-        element: <Dashboard></Dashboard>,
+        element:
+            <PrivateRoute>
+                <Dashboard></Dashboard>
+            </PrivateRoute>,
+
         children: [
             {
                 path: 'manage-items',

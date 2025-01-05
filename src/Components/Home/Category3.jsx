@@ -33,7 +33,7 @@ const Category3 = () => {
                 ))}
             </div>
 
-           <Link to={`/shop`}>
+           <Link to={`/menu`}>
            <button className="mt-8 btn btn-outline  text-black font-bold border-0 border-b-4 rounded-lg shadow-lg flex items-center space-x-2">
                 <span>View Full Menu</span>
                 <FaChevronRight />
