@@ -10,7 +10,9 @@ const AllUsers = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/users');
+            const res = await axiosSecure.get('/users', {
+                headers: { authorization: `Bearer ${localStorage.getItem('access-token')}` }
+            });
             return res.data;
         }
     });
@@ -18,7 +20,6 @@ const AllUsers = () => {
     const handleMakeAdmin = (user) => {
         axiosSecure.patch(`/users/admin/${user._id}`)
             .then(res => {
-                console.log(res.data);
                 if (res.data.modifiedCount > 0) {
                     Swal.fire({
                         title: 'Success!',
