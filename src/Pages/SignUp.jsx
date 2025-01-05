@@ -8,6 +8,7 @@ import { useContext } from "react";
 import Swal from 'sweetalert2';
 import { AuthContext } from "../Providers/AuthProvider";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
+import SocialLogin from "../Common/Social Login/SocialLogin";
 
 const SignUp = () => {
     const { createNewUser, updateUserProfile } = useContext(AuthContext);
@@ -152,6 +153,10 @@ const SignUp = () => {
                                 Sign Up
                             </button>
                         </form>
+
+                        <div className='mt-4 flex justify-center items-center'>
+                            <SocialLogin></SocialLogin>
+                        </div>
 
                         <div className="text-center mt-6">
                             <Link to="/login" className="text-sm text-yellow-500 hover:underline">

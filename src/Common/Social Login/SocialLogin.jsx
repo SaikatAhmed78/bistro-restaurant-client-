@@ -1,16 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const SocialLogin = () => {
 
     const { signInWithGoogle } = useAuth();
+    const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
 
     const handleGogleSignIn = () => {
         signInWithGoogle()
             .then(result => {
-                console.log(result.user)
-                navigate('/')
+
+                const userInfo = {
+                    email: result.user.email,
+                    name: result.user.displayName
+                };
+
+                axiosPublic.post('/users', userInfo)
+                    .then(result => {
+                        console.log(result.data)
+                        navigate('/')
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             })
     }
 
