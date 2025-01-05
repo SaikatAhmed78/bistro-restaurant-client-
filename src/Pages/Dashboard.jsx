@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { FaHome, FaPlus, FaEdit, FaCalendarAlt, FaUsers, FaConciergeBell, FaStore, FaAddressBook } from 'react-icons/fa';
+import useCart from '../Hooks/useCart';
+import useAdmin from '../Hooks/useAdmin';
 
 const menuItems = [
     { to: "/dashboard", label: "Admin Home", icon: <FaHome />, end: true },
@@ -18,6 +20,10 @@ const extraLinks = [
 ];
 
 const Dashboard = () => {
+
+    const [cart] = useCart();
+    const isAdmin = useAdmin
+
     return (
         <div className='flex h-screen'>
             <aside className="w-64 min-h-full bg-gradient-to-b from-yellow-400 to-yellow-500 p-6">
