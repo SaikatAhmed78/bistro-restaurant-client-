@@ -28,9 +28,8 @@ const Dashboard = () => {
                             <NavLink
                                 to={item.to}
                                 end={item.end}
-                                className={({ isActive }) => 
-                                    `flex items-center space-x-2 p-2 rounded-md transition-all duration-300 ${
-                                        isActive ? "bg-white text-yellow-500" : "text-white hover:bg-yellow-600 hover:bg-opacity-50"
+                                className={({ isActive }) =>
+                                    `flex items-center space-x-2 p-2 rounded-md transition-all duration-300 ${isActive ? "bg-white text-yellow-500" : "text-white hover:bg-yellow-600 hover:bg-opacity-50"
                                     }`
                                 }
                             >
@@ -46,9 +45,8 @@ const Dashboard = () => {
                         <li key={index}>
                             <NavLink
                                 to={item.to}
-                                className={({ isActive }) => 
-                                    `flex items-center space-x-2 p-2 rounded-md transition-all duration-300 ${
-                                        isActive ? "bg-white text-yellow-500" : "text-white hover:bg-yellow-600 hover:bg-opacity-50"
+                                className={({ isActive }) =>
+                                    `flex items-center space-x-2 p-2 rounded-md transition-all duration-300 ${isActive ? "bg-white text-yellow-500" : "text-white hover:bg-yellow-600 hover:bg-opacity-50"
                                     }`
                                 }
                             >
