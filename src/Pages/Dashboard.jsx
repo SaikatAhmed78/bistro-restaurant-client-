@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
-import { FaHome, FaPlus, FaEdit, FaCalendarAlt, FaUsers, FaConciergeBell, FaStore, FaAddressBook } from 'react-icons/fa';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { FaHome, FaPlus, FaEdit, FaCalendarAlt, FaUsers, FaConciergeBell, FaStore, FaAddressBook, FaCartArrowDown } from 'react-icons/fa';
 import useCart from '../Hooks/useCart';
 import useAdmin from '../Hooks/useAdmin';
 
@@ -20,14 +20,27 @@ const extraLinks = [
 ];
 
 const Dashboard = () => {
-
     const [cart] = useCart();
-    const isAdmin = useAdmin
+    const { isAdmin, isAdminLoading } = useAdmin();
+    const navigate = useNavigate();
+
+    // if (isAdminLoading) {
+    //     return (
+    //         <div className="flex justify-center items-center min-h-screen bg-gray-900">
+    //             <RingLoader color="#facc15" size={100} speedMultiplier={1.2} />
+    //             <p className="text-yellow-400 mt-4 font-semibold text-lg">Loading, please wait...</p>
+    //         </div>
+    //     );
+    // }
+
+    // if (!isAdmin) {
+    //     navigate('/');
+    // }
 
     return (
-        <div className='flex h-screen'>
-            <aside className="w-64 min-h-full bg-gradient-to-b from-yellow-400 to-yellow-500 p-6">
-                <h2 className="text-2xl font-bold text-white mb-8 text-center">Admin Dashboard</h2>
+        <div className='flex h-screen bg-gradient-to-tr from-gray-100 to-gray-300'>
+            <aside className="w-64 min-h-full bg-gradient-to-b from-yellow-400 to-yellow-500 shadow-lg p-6">
+                <h2 className="text-3xl font-extrabold text-white mb-8 text-center">Admin Dashboard</h2>
                 <ul className='space-y-4'>
                     {menuItems.map((item, index) => (
                         <li key={index}>
@@ -35,8 +48,7 @@ const Dashboard = () => {
                                 to={item.to}
                                 end={item.end}
                                 className={({ isActive }) =>
-                                    `flex items-center space-x-2 p-2 rounded-md transition-all duration-300 ${isActive ? "bg-white text-yellow-500" : "text-white hover:bg-yellow-600 hover:bg-opacity-50"
-                                    }`
+                                    `flex items-center space-x-2 p-2 rounded-md transition-all duration-300 ${isActive ? "bg-white text-yellow-500 shadow" : "text-white hover:bg-yellow-600 hover:bg-opacity-50"}`
                                 }
                             >
                                 {React.cloneElement(item.icon, { className: "w-5 h-5" })}
@@ -52,8 +64,7 @@ const Dashboard = () => {
                             <NavLink
                                 to={item.to}
                                 className={({ isActive }) =>
-                                    `flex items-center space-x-2 p-2 rounded-md transition-all duration-300 ${isActive ? "bg-white text-yellow-500" : "text-white hover:bg-yellow-600 hover:bg-opacity-50"
-                                    }`
+                                    `flex items-center space-x-2 p-2 rounded-md transition-all duration-300 ${isActive ? "bg-white text-yellow-500 shadow" : "text-white hover:bg-yellow-600 hover:bg-opacity-50"}`
                                 }
                             >
                                 {React.cloneElement(item.icon, { className: "w-5 h-5" })}
@@ -62,8 +73,19 @@ const Dashboard = () => {
                         </li>
                     ))}
                 </ul>
+                <div className='space-y-4 mt-auto'>
+                    <NavLink
+                        to="/dashboard/cart"
+                        className={({ isActive }) =>
+                            `flex items-center space-x-2 p-2 rounded-md transition-all duration-300 ${isActive ? "bg-white text-yellow-500 shadow" : "text-white hover:bg-yellow-600 hover:bg-opacity-50"}`
+                        }
+                    >
+                        <FaCartArrowDown className="w-5 h-5" />
+                        <span>Cart ({cart.length})</span>
+                    </NavLink>
+                </div>
             </aside>
-            <main className='flex-1 p-6 bg-gray-100'>
+            <main className='flex-1 p-10 bg-white shadow-inner rounded-lg'>
                 <Outlet />
             </main>
         </div>

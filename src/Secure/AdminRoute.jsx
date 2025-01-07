@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Navigate, useLocation } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin";
+import useAuth from "../Hooks/useAuth";
 import { RingLoader } from 'react-spinners';
-import useAuth from '../Hooks/useAuth';
 
-const PrivateRoute = ({ children }) => {
+
+const AdminRoute = ({ children }) => {
     const { user, loading } = useAuth();
+    const { isAdmin, isAdminLoading } = useAdmin();
     const location = useLocation();
 
-    if (loading) {
+    if (loading || isAdminLoading) {
         return (
             <div className="flex justify-center items-center min-h-screen bg-gray-900">
                 <RingLoader color="#facc15" size={100} speedMultiplier={1.2} />
@@ -16,11 +19,11 @@ const PrivateRoute = ({ children }) => {
         );
     }
 
-    if (user) {
+    if (user && isAdmin) {
         return children;
     }
 
-    return <Navigate to='/login' state={{ from: location }} replace />;
+    return <Navigate to='/' state={{ from: location }} replace />;
 };
 
-export default PrivateRoute;
+export default AdminRoute;

@@ -1,30 +1,28 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { FaUtensilSpoon } from 'react-icons/fa';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
+
+
+// HOSTING KEY & API
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddItems = () => {
+    const axiosPublic = useAxiosPublic();
+
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-        try {
-            const response = await axios.post('http://localhost:5000/menu-items', data);
-            if (response.data.insertedId) {
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Item has been added successfully.',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-            }
-        } catch (error) {
-            Swal.fire({
-                title: 'Error!',
-                text: 'Failed to add item. Please try again.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        }
+        console.log(data)
+        const imageFile = { image: data.image[0] };
+        const res = await axiosPublic.post(image_hosting_api, imageFile,
+            { headers: { 'content-type': 'multipart/form/data' } }
+        )
+
+        console.log(res.data)
     };
 
     return (
@@ -51,10 +49,11 @@ const AddItems = () => {
                                 className={`w-full p-4 border rounded-md focus:outline-none focus:border-yellow-500 ${errors.category ? 'border-red-500' : 'border-gray-300'}`}
                             >
                                 <option value="">Select a category</option>
-                                <option value="appetizer">Appetizer</option>
-                                <option value="main">Main Course</option>
+                                <option value="salad">Salad</option>
+                                <option value="pizza">Pizza</option>
+                                <option value="soup">Soup</option>
                                 <option value="dessert">Dessert</option>
-                                <option value="beverage">Beverage</option>
+                                <option value="drinks">Drinks</option>
                             </select>
                             {errors.category && <p className="text-red-500 text-sm">{errors.category.message}</p>}
                         </div>
@@ -95,6 +94,7 @@ const AddItems = () => {
                         className="w-full bg-yellow-500 text-white py-4 rounded-md hover:bg-yellow-400 transition duration-300"
                     >
                         Add Item
+                        <FaUtensilSpoon className='ml-4'></FaUtensilSpoon>
                     </button>
                 </form>
             </div>

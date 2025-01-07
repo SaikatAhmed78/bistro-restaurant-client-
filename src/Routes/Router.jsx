@@ -12,6 +12,8 @@ import Cart from "../Components/Dashboard/Cart";
 import AddItems from "../Components/Dashboard/AddItems";
 import PrivateRoute from "../Secure/PrivateRoute";
 import AllUsers from "../Components/Dashboard/AllUsers";
+import AdminRoute from "../Secure/AdminRoute";
+import ErrorPage from "../Common/Dashboard Error page/ErrorPage";
 
 const router = createBrowserRouter([
     {
@@ -49,22 +51,21 @@ const router = createBrowserRouter([
     {
         path: '/dashboard',
         element:
-            <PrivateRoute>
-                <Dashboard></Dashboard>
-            </PrivateRoute>,
-
+            <PrivateRoute> <Dashboard></Dashboard></PrivateRoute>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: 'manage-items',
                 element: <Cart></Cart>
             },
+
             {
                 path: 'add-items',
-                element: <AddItems></AddItems>
+                element: <AdminRoute><AddItems></AddItems></AdminRoute>
             },
             {
                 path: 'all-users',
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             },
         ]
     }
