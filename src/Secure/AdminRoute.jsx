@@ -7,7 +7,7 @@ import { RingLoader } from 'react-spinners';
 
 const AdminRoute = ({ children }) => {
     const { user, loading } = useAuth();
-    const { isAdmin, isAdminLoading } = useAdmin();
+    const [isAdmin, isAdminLoading] = useAdmin();
     const location = useLocation();
 
     if (loading || isAdminLoading) {

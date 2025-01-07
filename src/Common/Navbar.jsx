@@ -48,7 +48,7 @@ const Navbar = () => {
     return (
         <nav className="bg-black bg-opacity-80 fixed w-full z-50 shadow-lg">
             <div className="container mx-auto flex justify-between items-center p-4">
-         
+
                 <div className="lg:hidden">
                     <div className="dropdown relative">
                         <label tabIndex={0} className="btn btn-ghost">
@@ -65,7 +65,7 @@ const Navbar = () => {
                             <NavItem to="/dashboard" icon={<FaTachometerAlt />} label="Dashboard" />
                             <NavItem to="/menu" icon={<FaUtensils />} label="Our Menu" />
                             <NavItem to="/shop/salad" icon={<FaStore />} label="Our Shop" />
-                          
+
                         </ul>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ const Navbar = () => {
                     <span className="text-yellow-400">RESTAURANT</span>
                 </Link>
 
-          
+
                 <div className="hidden lg:flex space-x-8">
                     <ul className="flex space-x-6">
                         <NavItem to="/" icon={<FaHome />} label="Home" />
@@ -85,10 +85,10 @@ const Navbar = () => {
                         <NavItem to="/shop/salad" icon={<FaStore />} label="Our Shop" />
 
                         <Link to="/dashboard/manage-items">
-                        <li className="flex items-center space-x-2">
-                            <FaShoppingCart className="w-5 h-5 text-white" />
-                            <div className="badge badge-secondary">+{cart.length}</div>
-                        </li>
+                            <li className="flex items-center space-x-2">
+                                <FaShoppingCart className="w-5 h-5 text-white" />
+                                <div className="badge badge-secondary">+{cart.length}</div>
+                            </li>
                         </Link>
                     </ul>
                 </div>
