@@ -24,22 +24,9 @@ const Dashboard = () => {
     const { isAdmin, isAdminLoading } = useAdmin();
     const navigate = useNavigate();
 
-    // if (isAdminLoading) {
-    //     return (
-    //         <div className="flex justify-center items-center min-h-screen bg-gray-900">
-    //             <RingLoader color="#facc15" size={100} speedMultiplier={1.2} />
-    //             <p className="text-yellow-400 mt-4 font-semibold text-lg">Loading, please wait...</p>
-    //         </div>
-    //     );
-    // }
-
-    // if (!isAdmin) {
-    //     navigate('/');
-    // }
-
     return (
         <div className='flex h-screen bg-gradient-to-tr from-gray-100 to-gray-300'>
-            <aside className="w-64 min-h-full bg-gradient-to-b from-yellow-400 to-yellow-500 shadow-lg p-6">
+            <aside className="fixed w-64 h-screen bg-gradient-to-b from-yellow-400 to-yellow-500 shadow-lg p-6">
                 <h2 className="text-3xl font-extrabold text-white mb-8 text-center">Admin Dashboard</h2>
                 <ul className='space-y-4'>
                     {menuItems.map((item, index) => (
@@ -85,7 +72,7 @@ const Dashboard = () => {
                     </NavLink>
                 </div>
             </aside>
-            <main className='flex-1 p-10 bg-white shadow-inner rounded-lg'>
+            <main className='ml-64 flex-1 p-10 bg-white shadow-inner rounded-lg overflow-y-auto'>
                 <Outlet />
             </main>
         </div>

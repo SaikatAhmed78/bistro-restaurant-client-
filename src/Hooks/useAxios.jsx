@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-   baseURL: 'http://localhost:5000'
+   baseURL: 'https://bistro-boss-restaurant-server-sooty.vercel.app'
 });
 
 const useAxios = () => {
@@ -12,7 +12,7 @@ const useAxios = () => {
 
    axiosSecure.interceptors.request.use(function (config) {
       const token = localStorage.getItem('access-token');
-      console.log('request stopped by interceptor', token);
+
       config.headers.authorization = `Bearer ${token}`;
       return config;
    }, function (error) {
@@ -23,7 +23,7 @@ const useAxios = () => {
       return response;
    }, async function (error) {
       const status = error.response.status;
-      console.log('status error in the interceptor', status);
+
 
       if (status === 401 || status === 403) {
          await logOut();
