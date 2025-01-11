@@ -16,7 +16,7 @@ const useAdmin = () => {
 
             return res?.data?.admin
         },
-        enabled: !!user?.email
+
     })
 
     return [isAdmin, isAdminLoading]

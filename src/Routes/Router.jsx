@@ -17,6 +17,9 @@ import ErrorPage from "../Common/Dashboard Error page/ErrorPage";
 import ManageItems from "../Components/Dashboard/ManageItems";
 import UpdateItem from "../Components/Dashboard/UpdateItem";
 import Payment from "../Components/Dashboard/Payment";
+import PaymentHistory from "../Components/ContactUs/PaymentHistory";
+import AdminHome from "../Components/Dashboard/AdminHome";
+import UserHome from "../Components/Dashboard/UserHome";
 
 const router = createBrowserRouter([
     {
@@ -58,16 +61,28 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
-                path: 'cart',
+                path: 'userHome',
+                element: <UserHome></UserHome>
+            },
+            {
+                path: 'my-cart',
                 element: <Cart></Cart>
             },
             {
                 path: 'payment',
                 element: <Payment></Payment>
             },
+            {
+                path: 'paymentHistory',
+                element: <PaymentHistory></PaymentHistory>
+            },
 
             // Admin Only
 
+            {
+                path: 'adminHome',
+                element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+            },
             {
                 path: 'add-items',
                 element: <AdminRoute><AddItems></AddItems></AdminRoute>
@@ -79,7 +94,7 @@ const router = createBrowserRouter([
             {
                 path: 'update-item/:id',
                 element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
-                loader: ({ params }) => fetch(`https://bistro-boss-restaurant-server-sooty.vercel.app/menu/${params.id}`)
+                loader: ({ params }) => fetch(`https://bistro-web.vercel.app/menu/${params.id}`)
             },
             {
                 path: 'all-users',

@@ -67,16 +67,6 @@ const Cart = () => {
                         </button>
                     )}
 
-                    {/* remove */}
-
-                    <Link to="/dashboard/payment">
-                        <button
-                            className="bg-yellow-500 text-white py-2 px-6 rounded-md hover:bg-yellow-400 transition duration-300 mt-2 md:mt-0"
-                        >
-                            Pay
-                        </button>
-                    </Link>
-
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-left table-auto">
