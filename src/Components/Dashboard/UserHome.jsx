@@ -10,7 +10,7 @@ const UserHome = () => {
             <h2 className='text-2xl'>
                 <span>Hi, Welcome </span>
                 {
-                    user?.displayname ? user.displayName : 'Back'
+                    user?.displayName ? user.displayName : 'Back'
                 }
             </h2>
         </div>

@@ -14,6 +14,8 @@ const CheckoutForm = () => {
     const [clientSecret, setClientSecret] = useState('');
     const [transactionId, setTransactionId] = useState('');
 
+
+
     const navigate = useNavigate();
 
     const axiosSecure = useAxios();
@@ -22,7 +24,7 @@ const CheckoutForm = () => {
 
     useEffect(() => {
         if (totalPrice > 0) {
-            axiosSecure.post('/create-payment-intent', { price: totalPrice })
+            axiosSecure.post('/creat-payment-intent', { price: totalPrice })
                 .then(res => {
                     setClientSecret(res.data.clientSecret);
                 });
@@ -31,6 +33,7 @@ const CheckoutForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
 
         if (!stripe || !elements) {
             return;
