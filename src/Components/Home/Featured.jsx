@@ -1,4 +1,3 @@
-import React from 'react';
 import './featured.css'
 import overlayImage from '../../assets/home/featured.jpg';
 
@@ -6,10 +5,14 @@ const Featured = () => {
     return (
         <div className="featured-background bg-fixed rounded-lg">
             <div className="bg-black bg-opacity-50 p-8 rounded-lg text-white max-w-4xl mx-auto flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-6">
-                <img src={overlayImage} alt="Featured Dish" className="w-1/2 md:w-1/3 rounded-lg shadow-lg" />
+
+                <img src={overlayImage} className="w-1/2 md:w-1/3 rounded-lg shadow-lg" />
+
                 <div>
+
                     <h2 className="text-2xl font-bold mb-4">Today's Special</h2>
                     <h3 className="text-4xl font-bold mb-4">FEATURED DISH</h3>
+
                     <p className="text-lg mb-4">April 14, 2024</p>
                     <h4 className="text-2xl font-bold mb-4">Delight in Every Bite</h4>
                     <p className="text-lg mb-6">
