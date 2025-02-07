@@ -100,7 +100,7 @@ const Navbar = () => {
                             alt="User"
                             className="w-10 h-10 rounded-full"
                         />
-                        <span className="text-white">{user.displayName || 'User'}</span>
+                        <span className="text-white"> Wellcome: {user.displayName || 'User'} </span>
                         <button
                             onClick={handleSignOut}
                             className="btn bg-yellow-500 hover:bg-yellow-400 text-black"

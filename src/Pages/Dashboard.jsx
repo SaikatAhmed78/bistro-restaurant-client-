@@ -8,7 +8,7 @@ const adminMenuItems = [
     { to: "/dashboard/adminHome", label: "Admin Home", icon: <FaHome />, end: true },
     { to: "/dashboard/add-items", label: "Add Items", icon: <FaPlus /> },
     { to: "/dashboard/manage-items", label: "Manage Items", icon: <FaEdit /> },
-    { to: "/dashboard/manage-bookings", label: "Manage Bookings", icon: <FaCalendarAlt /> },
+    { to: "/dashboard/manage-bookingsa", label: "Manage Bookings", icon: <FaCalendarAlt /> },
     { to: "/dashboard/all-users", label: "All Users", icon: <FaUsers /> },
 ];
 
@@ -17,8 +17,8 @@ const userMenuItems = [
     { to: "/dashboard/payment", label: "Reservation", icon: <FaCalendarAlt /> },
     { to: "/dashboard/paymentHistory", label: "Payment History", icon: <FaStore /> },
     { to: "/dashboard/my-cart", label: "My Cart", icon: <FaCartArrowDown />, extra: true },
-    { to: "/dashboard/add-review", label: "Add Review", icon: <FaPlus /> },
-    { to: "/dashboard/my-booking", label: "My Booking", icon: <FaCalendarAlt /> },
+    { to: "/dashboard/add-reviewu", label: "Add Review", icon: <FaPlus /> },
+    { to: "/dashboard/my-bookingu", label: "My Booking", icon: <FaCalendarAlt /> },
 ];
 
 const extraLinks = [

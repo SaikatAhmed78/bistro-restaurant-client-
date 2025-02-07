@@ -67,7 +67,7 @@ const CheckoutForm = () => {
         });
 
         if (confirmError) {
-            console.log('Confirm Error:', confirmError);
+
             Swal.fire({
                 icon: 'error',
                 title: 'Payment Error',

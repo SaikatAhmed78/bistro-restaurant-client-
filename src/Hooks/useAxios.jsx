@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-   baseURL: 'http://localhost:5000'
+   baseURL: 'https://bistro-restaurant-rho.vercel.app'
 
 });
 
 const useAxios = () => {
+
    const { logOut } = useAuth();
    const navigate = useNavigate();
 

@@ -20,6 +20,9 @@ import Payment from "../Components/Dashboard/Payment";
 import PaymentHistory from "../Components/ContactUs/PaymentHistory";
 import AdminHome from "../Components/Dashboard/AdminHome";
 import UserHome from "../Components/Dashboard/UserHome";
+import ManageBookings from "../Components/Dashboard/ManageBookings";
+import AddReview from "../Components/Dashboard/AddReviewu";
+import MyBookingu from "../Components/Dashboard/MyBookingu";
 
 const router = createBrowserRouter([
     {
@@ -76,6 +79,14 @@ const router = createBrowserRouter([
                 path: 'paymentHistory',
                 element: <PaymentHistory></PaymentHistory>
             },
+            {
+                path: 'add-reviewu',
+                element: <AddReview></AddReview>
+            },
+            {
+                path: 'my-bookingu',
+                element: <MyBookingu></MyBookingu>
+            },
 
             // Admin Only
 
@@ -92,9 +103,13 @@ const router = createBrowserRouter([
                 element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
             },
             {
+                path: 'manage-bookingsa',
+                element: <AdminRoute><ManageBookings></ManageBookings></AdminRoute>
+            },
+            {
                 path: 'update-item/:id',
                 element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/menu/${params.id}`)
+                loader: ({ params }) => fetch(`https://bistro-restaurant-rho.vercel.app/menu/${params.id}`)
             },
             {
                 path: 'all-users',

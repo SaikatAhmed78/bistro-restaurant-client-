@@ -7,6 +7,7 @@ import Category2 from '../Components/Home/Category2';
 import Category3 from '../Components/Home/Category3';
 import Featured from '../Components/Home/Featured';
 import Banner from '../Components/Home/Banner';
+import BannerP from './BannerP';
 
 const Home = () => {
     return (
@@ -25,6 +26,11 @@ const Home = () => {
                 <Category4></Category4>
                 <Featured></Featured>
                 <Reviews></Reviews>
+
+                <div className='mt-10 mb-10'>
+                    <BannerP></BannerP>
+
+                </div>
             </div>
         </div>
     );
